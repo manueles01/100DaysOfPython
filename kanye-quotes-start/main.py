@@ -15,7 +15,9 @@ canvas.grid(row=0, column=0)
 def get_quote():
     try:
         response = requests.get(url = "https://api.kanye.rest")
-        quote = response.json()["quote"]
+        response.raise_for_status()
+        data = response.json()
+        quote = data["quote"]
         canvas.itemconfig(quote_text, text=quote)
     except Exception as e:
         print(e)
